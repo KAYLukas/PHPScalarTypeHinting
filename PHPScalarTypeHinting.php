@@ -5,8 +5,8 @@ set_error_handler(
 		if ( E_RECOVERABLE_ERROR===$errno ) {
 			$matches = array();
 			if(preg_match('/Argument \d* passed to [\s\S]* must be an instance of ([^, ]*), ([^ ]*) given/', $errstr, $matches)){
-				$expectedClass = $matches[1];
-				$actualClass = $matches[2];
+				$expectedClass = strtolower($matches[1]);
+				$actualClass = strtolower($matches[2]);
 				switch($expectedClass){
 					case 'int':
 					case 'integer':
@@ -27,7 +27,7 @@ set_error_handler(
   							$actualClass == 'boolean' || $actualClass === 'string';
   				}
   			}else {
-  				return 1 === preg_match('/Argument \d* passed to [\s\S]* must be an instance of object, instance of ([^ ]*) given/', $errstr);
+  				return 1 === preg_match('/Argument \d* passed to [\s\S]* must be an instance of object, instance of ([^ ]*) given/i', $errstr);
   			}
   		}
   		return false;
